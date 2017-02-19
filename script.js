@@ -2,9 +2,9 @@
 
 var topics = [  "Double Dare",
 				"Rocko's Modern Life", 
-				// "All That", 
-				// "lengthends of the Hidden Temple",
-				// "Doug",
+				"All That", 
+				"Legends of the Hidden Temple",
+				"Doug",
 				// "Salute Your Shorts",
 				// "Ren & Stimpy",
 				// "Clarissa Explains It All",
@@ -46,13 +46,27 @@ for (var i = 0; i < topics.length; i++) {
       	// insert API key as needed
       	// limit results to 10
       var queryURL = "http://api.giphy.com/v1/gifs/search?q=" +
-        topics.name + "&api_key=dc6zaTOxFJmzC&limit=10";
+        $(this).topics + "&api_key=dc6zaTOxFJmzC&limit=10";
 
-      // Create your AJAX call: Request dta from API using AJAX
+      // Create your AJAX call: Request data from API using AJAX
       $.ajax({
         url: queryURL,
         method: "GET"
       })
 
       // Process AJAX call response
+      .done(function(response) {
+      	// Define a variable to contain rating info
 
+      	// Define a variable to contain <img> src info 
+
+      	// Create as many <div> containers as the limit we set in queryURL
+
+      	// Populate with rating and <img> info
+
+      	// Create as many <img> containers as the limit we set in queryURL
+
+      	// Populate 
+
+
+      }
