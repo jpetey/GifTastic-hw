@@ -83,15 +83,15 @@ function displayContent () {
 	      	console.log(gifStillSrc);
 	      	
 	      	// Create a container for rating info
-	      	var ratingDisplay =  $("<p>").text("This GIF is rated: " + gifRating);
+	      	var ratingDisplay =  $("<p>").html("TV<br>" + gifRating);
 
 	      	// Create a <img> containers and call in the GIFs
 	      	var gifDisplay = $("<img>").attr("src", gifStillSrc);
 	      	console.log(gifDisplay);
 
 	      	// Populate with rating and <img> info
-	      	divHolder.append(ratingDisplay);
 	      	divHolder.append(gifDisplay);
+	      	divHolder.append(ratingDisplay);
 
 	      	// Write the divHolder variable to the element with id = gifs-container
 	   		$("#gifs-container").append(divHolder);

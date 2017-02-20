@@ -12,3 +12,30 @@
 .tvshow-buttons:active {
 	background-color: #aa5108;
 }
+
+#content-display {
+	float: left;
+	position: relative;
+	background-image: url("tv.png");
+	background-size: 100% 100%;
+	padding: 83px 65px 51px 35px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+#content-display > img {
+	position: relative;
+} 
+
+#content-display > p {
+	position: absolute;
+	top: 80px;
+	right: 73px;
+	background-color: #000;
+	color: #fff;
+	padding: 5px 10px;
+	text-transform: uppercase;
+	text-align: center;
+	font-family: "Arial Black", Arial, sans-serif;
+	font-size: 10px;
+} 
