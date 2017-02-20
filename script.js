@@ -1,6 +1,6 @@
 // Define array of topics
 
-var topics = [  "Double Dare",
+var topics = [  "X-Men Cartoon",
 				"Rocko's Modern Life", 
 				"All That", 
 				"Legends of the Hidden Temple",
@@ -16,6 +16,7 @@ var topics = [  "Double Dare",
 				"Aaahh!!! Real Monsters"
 			]; 
 
+
 // WRITE A FX THAT CREATES BUTTONS FOR EACH PRE-DEFINED TOPIC
 function renderButtons() {
 	// Using a for-loop to iterate through each item in topics array...
@@ -29,8 +30,7 @@ function renderButtons() {
 
 		//... assign a data-topic data-attribute to each topic equal to it's name
 		nickShowBtn.attr("data-topic", topics[i]);
-		console.log(nickShowBtn.data("topic"));	
-		
+
 		//... populate each new <div> with text
 		nickShowBtn.text(topics[i]);
 		
@@ -54,7 +54,6 @@ function displayContent () {
       	// limit results to 10
      var queryURL = "http://api.giphy.com/v1/gifs/search?q=" +
     			    nickShow + "&api_key=dc6zaTOxFJmzC&limit=10";
-     console.log(queryURL);
 
     // Create your AJAX call: Request data from API using AJAX
      $.ajax({
@@ -77,17 +76,31 @@ function displayContent () {
 
 	      	// Define a variable to contain rating info
 	  		var gifRating = results[i].rating;
-	      	
-	      	// Define a variable to contain <img> src info 
-	      	var gifStillSrc = results[i].images.fixed_height.url;
-	      	console.log(gifStillSrc);
-	      	
+
 	      	// Create a container for rating info
 	      	var ratingDisplay =  $("<p>").html("TV<br>" + gifRating);
 
-	      	// Create a <img> containers and call in the GIFs
-	      	var gifDisplay = $("<img>").attr("src", gifStillSrc);
-	      	console.log(gifDisplay);
+	      	// Define a variable to contain <img> src info for still gif
+	      	var gifStillSrc = results[i].images.fixed_height_still.url;
+	      	
+	      	// Define a variable to contain src info for animated gif
+	      	var gifAnimateSrc = results[i].images.fixed_height.url;
+
+	      	// Create <img> containers ...
+	      	var gifDisplay = $("<img>")
+
+	      	//...and call in the still GIFs
+	      	gifDisplay.attr("src", gifStillSrc);
+
+	      	//... and assign a data-state attribute to each <img> equal to 'still'
+			gifDisplay.attr("data-state", "still");
+
+			//... and assign a data-animate attribute to each <img> equal to animated url
+			gifDisplay.attr("data-animate", gifAnimateSrc);
+
+			//... and assign a data-index attribute to each <img> equal to it's index
+			gifDisplay.attr("data-index", i);
+			console.log(gifDisplay);
 
 	      	// Populate with rating and <img> info
 	      	divHolder.append(gifDisplay);
@@ -96,9 +109,39 @@ function displayContent () {
 	      	// Write the divHolder variable to the element with id = gifs-container
 	   		$("#gifs-container").append(divHolder);
 	    }
+		// DEFINE WHAT HAPPENS WHEN <IMG> ELEMENTS ARE CLICKED
+		$("img").on("click", function () {
 
-    });
+			// Define a variable equal to element's data-state attribute
+			var gifState = 	$(this).attr("data-state");	
+			console.log(gifState);
 
+			// Define a variable equal to element's data-index attribute
+			var gifIndex = 	parseInt($(this).attr("data-index"));	
+			console.log(gifIndex);
+
+			// Create an if statement to check current state
+			 // If element state is equal to 'still'
+			 if (gifState === "still") {
+			 	
+				// Change <img> to animated gif 
+				$(this).attr("src", results[gifIndex].images.fixed_height.url);
+				
+				// And change 'data-state' to 'animate' 
+				$(this).attr("data-state", "animate")
+
+			 // If element state is equal to 'animate'
+			 } else if (gifState === "animate") {
+
+				// Change <img> to still gif 
+				$(this).attr("src", results[gifIndex].images.fixed_height_still.url);
+				
+				// And change 'data-state' to 'still'     
+				$(this).attr("data-state", "still")
+		 	}
+		});
+		
+	});
 };
 
 // LOAD PRE-DEFINED BUTTONS
@@ -106,4 +149,6 @@ renderButtons();
 
 // DEFINE WHAT HAPPENS WHEN PREDEFINED BUTTONS ARE CLICKED
 $(document).on("click", ".tvshow-buttons", displayContent);
+
+
 
