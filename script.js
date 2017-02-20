@@ -41,7 +41,10 @@ function renderButtons() {
 
 // WRITE A FX THAT WRITES/OVERWRITES RATING & CONTENT TO HTML FOR EACH BUTTON 
 function displayContent () {
-	
+
+	// Clear the 
+	$("#gifs-container").empty();	
+
 	// Create a variable that allows us to pass in topic info into GIF URL query
 	var nickShow = $(this).attr("data-topic");
 	console.log(nickShow);
@@ -70,7 +73,7 @@ function displayContent () {
         for (var i = 0; i < results.length; i++) {
 	      	
 	      	// Define a div to contain each rating
-	      	var divHolder = $("div");
+	      	var divHolder = $("<div id='content-display'>");
 
 	      	// Define a variable to contain rating info
 	  		var gifRating = results[i].rating;
@@ -91,7 +94,7 @@ function displayContent () {
 	      	divHolder.append(gifDisplay);
 
 	      	// Write the divHolder variable to the element with id = gifs-container
-	      	$("#gifs-container").html(divHolder);
+	   		$("#gifs-container").append(divHolder);
 	    }
 
     });
