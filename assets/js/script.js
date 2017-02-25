@@ -9,9 +9,12 @@ var topics = [  "Saved by the Bell",
 				"Salute Your Shorts",
 				"Beavis and Butthead",
 				"Full House",
+				"Inspector Gadget",
+				"Celebrity Deathmatch",
 				"Aaahh!!! Real Monsters",
 				"Boy Meets World",
-				"Celebrity Deathmatch"
+				"Alvin and the Chipmunks",
+
 			]; 
 
 
@@ -105,7 +108,7 @@ function displayContent () {
 	      	divHolder.append(ratingDisplay);
 
 	      	// Write the divHolder variable to the element with id = gifs-container
-	   		$("#gifs-container").prepend(divHolder);
+	   		$("#gifs-container").append(divHolder);
 	    }
 		// DEFINE WHAT HAPPENS WHEN <IMG> ELEMENTS ARE CLICKED
 		$("img").on("click", function () {
@@ -143,16 +146,24 @@ function displayContent () {
 
 // DEFINE WHAT HAPPENS WHEN A USER SUBMITS A NEW SHOW INTO INPUT FIELD
 function addShow () {
-	// Retrieve text inputted into <input type="text" name="tvShow"> field
-	var textInput = $("input[type=text]").val();
-	console.log(textInput);
-	// Add input to end of 'topics' array using push()
-	topics.push(textInput);
-	console.log(topics);
+	// Define a variable for text input field
+	var submitShow = $("input[type=text]");
 
-	$("#button-container").empty();
-	renderButtons();
-	$("input[type=text]").val("");
+	// Make sure field isn't empty
+	if (submitShow.val().trim() === "") {
+		alert('Field cannot be left blank');
+	} else	{
+		// Retrieve text inputted into <input type="text" name="tvShow"> field
+		var textInput = submitShow.val();
+		console.log(textInput);
+		// Add input to end of 'topics' array using push()
+		topics.push(textInput);
+		console.log(topics);
+
+		$("#button-container").empty();
+		renderButtons();
+		submitShow.val("");
+	}						
 };
 	
 // LOAD PRE-DEFINED BUTTONS
@@ -162,6 +173,12 @@ renderButtons();
 $(document).on("click", ".tvshow-buttons", displayContent);
 
 $("input[type=submit]").on("click", addShow);
+
+$(document).keypress(function (key) {
+	if (key.which === 13) {
+		addShow();
+	}
+});
 
 
 
