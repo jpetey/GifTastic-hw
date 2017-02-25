@@ -1,19 +1,17 @@
 // Define array of topics
 
-var topics = [  "X-Men Cartoon",
-				"Rocko's Modern Life", 
-				"All That", 
-				"Legends of the Hidden Temple",
+var topics = [  "Saved by the Bell",
+				"Ducktales", 
+				"Family Matters",
+				"Teenage Mutant Ninja Turtles", 
+				"Double Dare",
 				"Doug",
 				"Salute Your Shorts",
-				"Ren and Stimpy",
-				"Clarissa Explains It All",
-				"Rugrats",
-				"Are You Afraid of the Dark?",
-				"Spongebob Squarepants",
-				"KaBlam!",
-				"The Secret World of Alex Mack",
-				"Aaahh!!! Real Monsters"
+				"Beavis and Butthead",
+				"Full House",
+				"Aaahh!!! Real Monsters",
+				"Boy Meets World",
+				"Celebrity Deathmatch"
 			]; 
 
 
@@ -107,7 +105,7 @@ function displayContent () {
 	      	divHolder.append(ratingDisplay);
 
 	      	// Write the divHolder variable to the element with id = gifs-container
-	   		$("#gifs-container").append(divHolder);
+	   		$("#gifs-container").prepend(divHolder);
 	    }
 		// DEFINE WHAT HAPPENS WHEN <IMG> ELEMENTS ARE CLICKED
 		$("img").on("click", function () {
@@ -123,7 +121,7 @@ function displayContent () {
 			// Create an if statement to check current state
 			 // If element state is equal to 'still'
 			 if (gifState === "still") {
-			 	
+
 				// Change <img> to animated gif 
 				$(this).attr("src", results[gifIndex].images.fixed_height.url);
 				
@@ -139,16 +137,31 @@ function displayContent () {
 				// And change 'data-state' to 'still'     
 				$(this).attr("data-state", "still")
 		 	}
-		});
-		
+		});	
 	});
 };
 
+// DEFINE WHAT HAPPENS WHEN A USER SUBMITS A NEW SHOW INTO INPUT FIELD
+function addShow () {
+	// Retrieve text inputted into <input type="text" name="tvShow"> field
+	var textInput = $("input[type=text]").val();
+	console.log(textInput);
+	// Add input to end of 'topics' array using push()
+	topics.push(textInput);
+	console.log(topics);
+
+	$("#button-container").empty();
+	renderButtons();
+	$("input[type=text]").val("");
+};
+	
 // LOAD PRE-DEFINED BUTTONS
 renderButtons();
 
 // DEFINE WHAT HAPPENS WHEN PREDEFINED BUTTONS ARE CLICKED
 $(document).on("click", ".tvshow-buttons", displayContent);
+
+$("input[type=submit]").on("click", addShow);
 
 
 
