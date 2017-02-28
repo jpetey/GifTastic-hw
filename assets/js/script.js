@@ -159,7 +159,7 @@ function addShow () {
 		// Add input to end of 'topics' array using push()
 		topics.push(textInput);
 		console.log(topics);
-
+		// Clear button-container before adding newly submitted button to prevent repeated buttons
 		$("#button-container").empty();
 		renderButtons();
 		submitShow.val("");
@@ -172,8 +172,10 @@ renderButtons();
 // DEFINE WHAT HAPPENS WHEN PREDEFINED BUTTONS ARE CLICKED
 $(document).on("click", ".tvshow-buttons", displayContent);
 
+// DEFINE WHAT HAPPENS WHEN SUBMIT BUTTON IS CLICKED
 $("input[type=submit]").on("click", addShow);
 
+// Allow users to submit a TV Show to the page using the Enter Button
 $(document).keypress(function (key) {
 	if (key.which === 13) {
 		addShow();
